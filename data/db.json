@@ -1,0 +1,256 @@
+{
+  "users": [
+    {
+      "id": "usr_demo_001",
+      "email": "ivan.petrov@example.test",
+      "phone": "+380501112233",
+      "country": "UA",
+      "status": "active",
+      "createdAt": "2026-07-29T16:56:57.404Z"
+    },
+    {
+      "id": "usr_demo_002",
+      "email": "maria.sokolova@example.test",
+      "phone": "+971501112233",
+      "country": "AE",
+      "status": "active",
+      "createdAt": "2026-07-29T16:56:57.404Z"
+    }
+  ],
+  "kycProfiles": [
+    {
+      "userId": "usr_demo_001",
+      "legalName": "Ivan Petrov",
+      "country": "UA",
+      "documentStatus": "verified",
+      "sanctionsStatus": "clear",
+      "riskLevel": "low",
+      "kycProviderRef": "demo-kyc-001",
+      "verifiedAt": "2026-07-29T16:56:57.404Z"
+    },
+    {
+      "userId": "usr_demo_002",
+      "legalName": "Maria Sokolova",
+      "country": "AE",
+      "documentStatus": "verified",
+      "sanctionsStatus": "clear",
+      "riskLevel": "medium",
+      "kycProviderRef": "demo-kyc-002",
+      "verifiedAt": "2026-07-29T16:56:57.404Z"
+    }
+  ],
+  "partners": [
+    {
+      "id": "ptr_agent_001",
+      "legalName": "ABC Payments FZE",
+      "registrationNumber": "FZE-DEMO-001",
+      "jurisdiction": "AE",
+      "modelType": "agent",
+      "kybStatus": "approved",
+      "riskRating": "medium",
+      "status": "active",
+      "contractStatus": "draft_ready"
+    },
+    {
+      "id": "ptr_merchant_001",
+      "legalName": "ABC Trading FZE",
+      "registrationNumber": "FZE-DEMO-002",
+      "jurisdiction": "AE",
+      "modelType": "merchant",
+      "kybStatus": "approved",
+      "riskRating": "medium",
+      "status": "active",
+      "contractStatus": "draft_ready"
+    }
+  ],
+  "partnerBankAccounts": [
+    {
+      "id": "bank_agent_usd",
+      "partnerId": "ptr_agent_001",
+      "bankName": "Demo Bank",
+      "accountNumberMasked": "AE00 **** **** 1001",
+      "currency": "USD",
+      "status": "approved",
+      "approvedForCryptoPurpose": true,
+      "bankNarrativeVersion": "agent-v1"
+    },
+    {
+      "id": "bank_merchant_usd",
+      "partnerId": "ptr_merchant_001",
+      "bankName": "Demo Bank",
+      "accountNumberMasked": "AE00 **** **** 2001",
+      "currency": "USD",
+      "status": "approved",
+      "approvedForCryptoPurpose": true,
+      "bankNarrativeVersion": "merchant-v1"
+    }
+  ],
+  "partnerWallets": [
+    {
+      "id": "wal_agent_trc20",
+      "partnerId": "ptr_agent_001",
+      "network": "TRC20",
+      "address": "TRC20_DEMO_AGENT_WHITELISTED",
+      "status": "approved",
+      "approvedAt": "2026-07-29T16:56:57.404Z"
+    },
+    {
+      "id": "wal_merchant_trc20",
+      "partnerId": "ptr_merchant_001",
+      "network": "TRC20",
+      "address": "TRC20_DEMO_MERCHANT_WHITELISTED",
+      "status": "approved",
+      "approvedAt": "2026-07-29T16:56:57.404Z"
+    }
+  ],
+  "usdtReserves": [
+    {
+      "id": "res_agent_001",
+      "partnerId": "ptr_agent_001",
+      "network": "TRC20",
+      "walletAddress": "TRC20_DEMO_AGENT_WHITELISTED",
+      "totalBalance": 50000,
+      "availableBalance": 50000,
+      "lockedBalance": 0,
+      "releasedBalance": 0,
+      "minimumRequiredReserve": 5000,
+      "status": "active"
+    },
+    {
+      "id": "res_merchant_001",
+      "partnerId": "ptr_merchant_001",
+      "network": "TRC20",
+      "walletAddress": "TRC20_DEMO_MERCHANT_WHITELISTED",
+      "totalBalance": 25000,
+      "availableBalance": 25000,
+      "lockedBalance": 0,
+      "releasedBalance": 0,
+      "minimumRequiredReserve": 3000,
+      "status": "active"
+    }
+  ],
+  "ledgerAccounts": [
+    {
+      "id": "ledger_exchange_fees_usdt",
+      "ownerType": "exchange",
+      "ownerId": "exchange_demo",
+      "asset": "USDT",
+      "currencyOrNetwork": "TRC20",
+      "balance": 0
+    },
+    {
+      "id": "ledger_agent_reserve_usdt",
+      "ownerType": "partner_reserve",
+      "ownerId": "ptr_agent_001",
+      "asset": "USDT",
+      "currencyOrNetwork": "TRC20",
+      "balance": 50000
+    },
+    {
+      "id": "ledger_merchant_reserve_usdt",
+      "ownerType": "partner_reserve",
+      "ownerId": "ptr_merchant_001",
+      "asset": "USDT",
+      "currencyOrNetwork": "TRC20",
+      "balance": 25000
+    },
+    {
+      "id": "ledger_user_001_usdt",
+      "ownerType": "user",
+      "ownerId": "usr_demo_001",
+      "asset": "USDT",
+      "currencyOrNetwork": "TRC20",
+      "balance": 0
+    },
+    {
+      "id": "ledger_user_002_usdt",
+      "ownerType": "user",
+      "ownerId": "usr_demo_002",
+      "asset": "USDT",
+      "currencyOrNetwork": "TRC20",
+      "balance": 0
+    }
+  ],
+  "orders": [],
+  "paymentInstructions": [],
+  "bankTransactions": [],
+  "paymentMatches": [],
+  "reserveLocks": [],
+  "ledgerEntries": [],
+  "settlementBatches": [],
+  "settlementItems": [],
+  "refundRequests": [],
+  "disputeCases": [],
+  "complianceChecks": [],
+  "complianceHolds": [],
+  "documentTemplates": [],
+  "disclosureTemplates": [
+    {
+      "id": "disc_agent_v1",
+      "modelType": "agent",
+      "text": "Фиатный платеж принимает [legal entity] как платежный партнер биржи по вашей заявке на пополнение."
+    },
+    {
+      "id": "disc_merchant_v1",
+      "modelType": "merchant",
+      "text": "Вы покупаете USDT у [legal entity]. Биржа обеспечивает платформу, проверку, escrow, учет и зачисление на ваш баланс."
+    }
+  ],
+  "legalDocuments": [
+    {
+      "id": "legal_terms_placeholder",
+      "slug": "terms",
+      "title": "Demo User Terms",
+      "version": "demo-v1",
+      "status": "active",
+      "requiredForOrder": true,
+      "content": "# Demo User Terms\n\nThis presentation document explains the user journey for a fiat to USDT on-ramp demo.\nThe final commercial terms, risk disclosures, fees, limits, refund rules and operator details must be uploaded by the project team before production.\n\nDemo scope: order creation, payment reference, partner confirmation, compliance review, reserve release, settlement and audit trail.",
+      "updatedAt": "2026-07-29T16:56:57.407Z"
+    },
+    {
+      "id": "legal_privacy_placeholder",
+      "slug": "privacy",
+      "title": "Demo Privacy Notice",
+      "version": "demo-v1",
+      "status": "active",
+      "requiredForOrder": true,
+      "content": "# Demo Privacy Notice\n\nThis presentation document shows where the final privacy notice will be displayed.\nThe production notice should describe controller details, data categories, KYC/KYB providers, retention, user rights and support contacts.\n\nDemo data is stored in the local JSON workspace and can be reset from the demo cockpit.",
+      "updatedAt": "2026-07-29T16:56:57.407Z"
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "aud_f9251f85f9484bbc8f",
+      "actorType": "system",
+      "actorId": "system",
+      "action": "database.reset",
+      "entityType": "database",
+      "entityId": "db",
+      "before": null,
+      "after": {
+        "schemaVersion": 1
+      },
+      "meta": {},
+      "createdAt": "2026-07-29T16:56:57.406Z"
+    },
+    {
+      "id": "aud_cdb0f7a6e54d42f78f",
+      "actorType": "admin",
+      "actorId": "demo-cockpit",
+      "action": "demo.workspace_prepared",
+      "entityType": "DemoWorkspace",
+      "entityId": "demo",
+      "before": null,
+      "after": {
+        "legalDocuments": 2
+      },
+      "meta": {},
+      "createdAt": "2026-07-29T16:56:57.408Z"
+    }
+  ],
+  "meta": {
+    "createdAt": "2026-07-29T16:56:57.404Z",
+    "schemaVersion": 1,
+    "mode": "demo"
+  }
+}

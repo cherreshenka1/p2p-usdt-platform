@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>P2P USDT Partner</title>
+    <link rel="stylesheet" href="/shared/theme.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <strong>USDT Desk</strong>
+          <span>Кабинет юрлица</span>
+        </div>
+        <nav class="nav-list">
+          <a href="/user">Заявка</a>
+          <a class="active" href="/partner">Партнер</a>
+          <a href="/admin">Админ</a>
+        </nav>
+        <small>KYB partner, fiat confirmation, reserve, settlements</small>
+      </aside>
+      <main class="main">
+        <section id="loginPanel" class="panel">
+          <h2>Partner access</h2>
+          <div class="form-grid">
+            <label>
+              Partner token
+              <input id="partnerToken" type="password" placeholder="P2P_USDT_PARTNER_TOKEN">
+            </label>
+          </div>
+          <div class="actions" style="margin-top:12px;">
+            <button id="loginBtn">Войти</button>
+            <button id="logoutBtn" class="secondary" type="button">Сбросить токен</button>
+          </div>
+        </section>
+        <div id="partnerContent" style="display:none;">
+        <header class="topbar">
+          <div>
+            <h1>Partner operations</h1>
+            <p>Платежи, резерв USDT и ответы по спорным операциям.</p>
+          </div>
+          <label style="max-width:320px;">
+            Юрлицо
+            <select id="partnerId"></select>
+          </label>
+        </header>
+
+        <section class="grid two">
+          <div class="panel">
+            <h2>Заявки партнера</h2>
+            <div id="ordersBox"></div>
+          </div>
+          <div class="grid">
+            <section class="panel">
+              <h2>Reserve</h2>
+              <div id="reserveBox"></div>
+            </section>
+            <section class="panel">
+              <h2>Settlements</h2>
+              <div id="settlementsBox"></div>
+            </section>
+            <section class="panel">
+              <h2>Disputes</h2>
+              <div id="disputesBox"></div>
+            </section>
+          </div>
+        </section>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/partner/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>P2P USDT Admin</title>
+    <link rel="stylesheet" href="/shared/theme.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <strong>USDT Desk</strong>
+          <span>Операторская панель</span>
+        </div>
+        <nav class="nav-list">
+          <a href="/user">Заявка</a>
+          <a href="/partner">Партнер</a>
+          <a class="active" href="/admin">Админ</a>
+        </nav>
+        <small>Orders, reserve, matching, settlement, audit</small>
+      </aside>
+      <main class="main">
+        <section id="loginPanel" class="panel">
+          <h2>Admin access</h2>
+          <div class="form-grid">
+            <label>
+              Admin token
+              <input id="adminToken" type="password" placeholder="P2P_USDT_ADMIN_TOKEN">
+            </label>
+          </div>
+          <div class="actions" style="margin-top:12px;">
+            <button id="loginBtn">Войти</button>
+            <button id="logoutBtn" class="secondary" type="button">Сбросить токен</button>
+          </div>
+        </section>
+
+        <div id="adminContent" style="display:none;">
+        <header class="topbar">
+          <div>
+            <h1>Control room</h1>
+            <p>Заявки, ручная проверка, резервы и закрытие расчетного дня.</p>
+          </div>
+          <div class="actions">
+            <button id="refreshBtn" class="secondary">Обновить</button>
+            <button id="settleBtn">Settlement</button>
+          </div>
+        </header>
+
+        <section id="metrics" class="grid three"></section>
+
+        <section class="grid two">
+          <div class="panel">
+            <h2>Заявки</h2>
+            <div id="ordersTable"></div>
+          </div>
+          <div class="panel">
+            <h2>Резервы</h2>
+            <div id="reservesTable"></div>
+          </div>
+        </section>
+
+        <section class="grid two">
+          <div class="panel">
+            <h2>Bank transactions</h2>
+            <div id="bankTable"></div>
+          </div>
+          <div class="panel">
+            <h2>Audit log</h2>
+            <div id="auditBox"></div>
+          </div>
+        </section>
+
+        <section class="grid two">
+          <div class="panel">
+            <h2>Legal documents</h2>
+            <form id="legalForm" class="grid">
+              <div class="form-grid">
+                <label>Slug<input id="legalSlug" value="terms"></label>
+                <label>Version<input id="legalVersion" value="v1"></label>
+                <label>Title<input id="legalTitle" value="User Terms"></label>
+                <label>Status<select id="legalStatus"><option value="draft">draft</option><option value="active">active</option></select></label>
+              </div>
+              <label>Markdown / text<textarea id="legalContent" rows="7">Upload final legal text here.</textarea></label>
+              <div class="actions"><button type="submit">Сохранить документ</button></div>
+            </form>
+          </div>
+          <div class="panel">
+            <h2>Readiness</h2>
+            <div id="readinessBox"></div>
+          </div>
+        </section>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/admin/app.js"></script>
+  </body>
+</html>

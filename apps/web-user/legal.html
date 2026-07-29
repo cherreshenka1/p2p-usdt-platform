@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Legal documents</title>
+    <link rel="stylesheet" href="/shared/theme.css">
+  </head>
+  <body>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Legal documents</h1>
+          <p>Пользовательские условия, privacy notice и другие загруженные документы.</p>
+        </div>
+        <a href="/user"><button class="secondary">Назад</button></a>
+      </header>
+      <section id="docs" class="grid"></section>
+    </main>
+    <script type="module">
+      const docsBox = document.querySelector("#docs");
+      const params = new URLSearchParams(location.search);
+      const slug = params.get("slug");
+      const url = slug ? `/api/public/legal-documents/${slug}` : "/api/public/legal-documents";
+      const response = await fetch(url);
+      const data = await response.json();
+      const docs = slug ? [data.legalDocument] : data.legalDocuments;
+      docsBox.innerHTML = docs.map((doc) => `
+        <article class="panel">
+          <div class="actions" style="justify-content:space-between;">
+            <h2 style="margin:0;">${escapeHtml(doc.title)}</h2>
+            <span class="badge ${doc.status === "active" ? "ok" : "warn"}">${doc.version} · ${doc.status}</span>
+          </div>
+          <pre class="mono" style="white-space:pre-wrap; line-height:1.55;">${escapeHtml(doc.content || "")}</pre>
+        </article>
+      `).join("");
+      function escapeHtml(value) {
+        return String(value || "").replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[char]));
+      }
+    </script>
+  </body>
+</html>

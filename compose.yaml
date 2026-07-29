@@ -1,0 +1,18 @@
+services:
+  p2p-usdt-platform:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8844:8844"
+    environment:
+      PORT: "8844"
+      P2P_USDT_BIND_HOST: "0.0.0.0"
+      P2P_USDT_LAUNCH_MODE: "production"
+      P2P_USDT_PUBLIC_BASE_URL: "https://example.com"
+      P2P_USDT_CORS_ORIGIN: "https://example.com"
+      P2P_USDT_ADMIN_TOKEN: "replace-with-long-random-admin-token"
+      P2P_USDT_PARTNER_TOKEN: "replace-with-long-random-partner-token"
+      P2P_USDT_KYC_MODE: "provider"
+      P2P_USDT_DATA_FILE: "/app/data/db.json"
+    volumes:
+      - ./data:/app/data

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>P2P USDT User</title>
+    <link rel="stylesheet" href="/shared/theme.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <strong>USDT Desk</strong>
+          <span>Пользовательский кабинет</span>
+        </div>
+        <nav class="nav-list">
+          <a class="active" href="/user">Заявка</a>
+          <a href="/partner">Партнер</a>
+          <a href="/admin">Админ</a>
+        </nav>
+        <small>Fiat -> USDT, reference ID, reserve, settlement</small>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Пополнение USDT</h1>
+            <p>Заявка, платежные реквизиты и статус зачисления.</p>
+          </div>
+          <span id="health" class="badge">API</span>
+        </header>
+
+        <section class="split">
+          <div class="grid">
+            <form id="orderForm" class="panel">
+              <h2>Новая заявка</h2>
+              <div class="form-grid">
+                <label>
+                  ФИО
+                  <input id="legalName" value="Ivan Petrov" autocomplete="name">
+                </label>
+                <label>
+                  Email
+                  <input id="email" type="email" value="ivan.petrov@example.test" autocomplete="email">
+                </label>
+                <label>
+                  Телефон
+                  <input id="phone" value="+380501112233" autocomplete="tel">
+                </label>
+                <label>
+                  Страна
+                  <input id="country" value="UA" maxlength="3">
+                </label>
+                <label>
+                  Модель
+                  <select id="modelType">
+                    <option value="agent">agent / collecting partner</option>
+                    <option value="merchant">merchant / liquidity provider</option>
+                  </select>
+                </label>
+                <label>
+                  Фиатная сумма
+                  <input id="fiatAmount" type="number" min="10" step="10" value="1000">
+                </label>
+                <label>
+                  Валюта
+                  <select id="fiatCurrency">
+                    <option>USD</option>
+                    <option>EUR</option>
+                    <option>UAH</option>
+                    <option>AED</option>
+                  </select>
+                </label>
+                <label>
+                  Сеть USDT
+                  <select id="network">
+                    <option>TRC20</option>
+                    <option>ERC20</option>
+                    <option>BEP20</option>
+                  </select>
+                </label>
+              </div>
+              <label style="margin-top: 12px;">
+                <span class="actions">
+                  <input id="acceptedTerms" type="checkbox" style="width:auto; min-height:auto;" checked>
+                  <span>Принимаю пользовательские условия и privacy notice</span>
+                </span>
+              </label>
+              <div id="legalBox" class="notice" style="margin-top: 12px;"></div>
+              <div class="actions" style="margin-top: 14px;">
+                <button type="button" id="quoteBtn" class="secondary">Рассчитать</button>
+                <button type="submit">Создать заявку</button>
+              </div>
+            </form>
+
+            <section class="panel">
+              <h2>Платежные инструкции</h2>
+              <div id="instructionBox" class="empty">Создай заявку, чтобы получить реквизиты и reference ID.</div>
+            </section>
+          </div>
+
+          <aside class="grid">
+            <section class="panel">
+              <h2>Расчет</h2>
+              <div id="quoteBox" class="empty">Расчет появится здесь.</div>
+            </section>
+            <section class="panel">
+              <h2>Статус</h2>
+              <div id="statusBox" class="empty">Активной заявки пока нет.</div>
+            </section>
+            <section class="panel">
+              <h2>Receipt</h2>
+              <div id="receiptBox" class="empty">Появится после создания заявки.</div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/user/app.js"></script>
+  </body>
+</html>

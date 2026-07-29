@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+data/*.log
+data/*smoke*.json
+data/*browser*.json
+data/*interactive*.json
+data/*temp*.json
+.DS_Store
+Thumbs.db
