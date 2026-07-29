@@ -2,6 +2,14 @@
 
 Release-ready MVP scaffold for a `fiat -> USDT` flow between an exchange, a legal-entity partner and users.
 
+Live static role demo:
+
+```text
+https://cherreshenkaw.github.io/p2p-usdt-platform/
+```
+
+The GitHub Pages demo is a browser-only presentation layer with role switching and an interactive lifecycle simulator. The full Node API, admin/partner auth, legal upload and backend checks remain in the main app and should be deployed to a server for production use.
+
 The app supports two operating models:
 
 - `agent`: legal entity acts as collecting/payment partner of the exchange.
