@@ -29,8 +29,10 @@ document.addEventListener("submit", (event) => {
 render();
 
 function loadState() {
-  const saved = localStorage.getItem("usdtDeskLiveDemo");
-  if (saved) return JSON.parse(saved);
+  try {
+    const saved = JSON.parse(localStorage.getItem("usdtDeskLiveDemo"));
+    if (saved && saved.reserve && Array.isArray(saved.audit) && Array.isArray(saved.settlements) && (!saved.order || Array.isArray(saved.order.history))) return saved;
+  } catch { /* Recover malformed browser data. */ }
   return freshState();
 }
 
@@ -44,7 +46,7 @@ function freshState() {
 }
 
 function save() {
-  localStorage.setItem("usdtDeskLiveDemo", JSON.stringify(state));
+  try { localStorage.setItem("usdtDeskLiveDemo", JSON.stringify(state)); } catch { /* Keep session usable if storage is unavailable. */ }
 }
 
 const actions = {
@@ -57,18 +59,18 @@ const actions = {
     createOrder();
   },
   confirm() {
-    if (!state.order) return createOrder();
+    if (!state.order || state.order.status !== "awaiting_payment") return;
     move("payment_received", "partner", "payment.confirmed");
     move("matched", "matching", "payment.matched");
   },
   wrong() {
-    if (!state.order) return createOrder();
+    if (!state.order || state.order.status !== "awaiting_payment") return;
     move("payment_received", "partner", "payment.confirmed_wrong_amount");
     move("compliance_review", "matching", "payment.review_required");
   },
   approve() {
-    if (!state.order) return createOrder();
-    if (state.order.status === "settled") return;
+    if (!state.order || !["matched", "compliance_review"].includes(state.order.status)) return;
+    if (state.reserve.available < state.order.usdt) return;
     move("approved", "admin", "order.approved");
     move("reserve_locked", "ledger", "reserve.locked");
     state.reserve.available = round(state.reserve.available - state.order.usdt);
@@ -77,8 +79,7 @@ const actions = {
     move("settlement_pending", "finance", "settlement.pending");
   },
   settle() {
-    if (!state.order) return createOrder();
-    if (!["settlement_pending", "credited_to_user"].includes(state.order.status)) actions.approve();
+    if (!state.order || !["settlement_pending", "credited_to_user"].includes(state.order.status)) return;
     if (state.order.status === "settled") return;
     const batch = {
       id: `SET-${Math.random().toString(16).slice(2, 8).toUpperCase()}`,
@@ -94,7 +95,9 @@ const actions = {
 
 function createOrder(form = null) {
   const amount = Number(form?.get("amount") || 1250);
-  const model = form?.get("model") || "agent";
+  if (!Number.isFinite(amount) || amount < 10 || amount > 50000) return;
+  if (state.order && state.order.status !== "settled") return;
+  const model = form?.get("model") === "merchant" ? "merchant" : "agent";
   const network = form?.get("network") || "TRC20";
   const spread = model === "merchant" ? 0.012 : 0.008;
   const usdt = round(amount * (1 - spread) - 2.5);
@@ -135,7 +138,7 @@ function render() {
         <div class="brand">
           <div class="mark">UD</div>
           <strong>USDT Desk</strong>
-          <span>GitHub Pages live demo</span>
+          <span>Демо · без реальных переводов</span>
         </div>
         <nav class="nav">
           ${routes.map(([id, code, label]) => `<a class="${route === id ? "active" : ""}" href="#/${id}"><span>${code}</span><strong>${label}</strong></a>`).join("")}
@@ -153,6 +156,20 @@ function render() {
       </main>
     </div>
   `;
+  const current = state.order?.status;
+  const allowed = {
+    create: !state.order || current === 'settled',
+    confirm: current === 'awaiting_payment',
+    wrong: current === 'awaiting_payment',
+    approve: ['matched', 'compliance_review'].includes(current) && state.reserve.available >= state.order.usdt,
+    settle: ['settlement_pending', 'credited_to_user'].includes(current)
+  };
+  app.querySelectorAll('button[data-action]').forEach(button => {
+    if (Object.hasOwn(allowed, button.dataset.action)) {
+      button.disabled = !allowed[button.dataset.action];
+      if (button.disabled) button.title = 'Недоступно на текущем этапе заявки';
+    }
+  });
 }
 
 function currentRoute() {
@@ -323,7 +340,7 @@ function ticket() {
 
 function orderTable() {
   const o = state.order;
-  return `<table><tbody><tr><td>Client</td><td>${o.client}</td></tr><tr><td>Partner</td><td>${o.partner} <span class="badge">${o.model}</span></td></tr><tr><td>Fiat</td><td>${money(o.fiat)}</td></tr><tr><td>USDT</td><td>${num(o.usdt)} ${o.network}</td></tr></tbody></table>`;
+  return `<table><tbody><tr><td>Client</td><td>${escapeText(o.client)}</td></tr><tr><td>Partner</td><td>${o.partner} <span class="badge">${o.model}</span></td></tr><tr><td>Fiat</td><td>${money(o.fiat)}</td></tr><tr><td>USDT</td><td>${num(o.usdt)} ${o.network}</td></tr></tbody></table>`;
 }
 
 function instructions() {
@@ -395,3 +412,5 @@ function round(value) {
 function now() {
   return new Date().toISOString();
 }
+
+function escapeText(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
