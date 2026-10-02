@@ -144,15 +144,16 @@ function render() {
           ${routes.map(([id, code, label]) => `<a class="${route === id ? "active" : ""}" href="#/${id}"><span>${code}</span><strong>${label}</strong></a>`).join("")}
         </nav>
         <div class="side">
-          <span class="badge ok">Live link</span>
+          <span class="badge ok">Sandbox</span>
           <span class="badge ${state.order ? "ok" : "warn"}">${state.order?.status || "ready"}</span>
-          <p>This hosted preview runs fully in the browser. The GitHub repo also contains the full Node API version.</p>
+          <p>Учебный контур · данные сохраняются в этом браузере.</p>
           <button class="ghost" data-action="reset">Reset demo</button>
         </div>
       </aside>
       <main class="content">
         ${topline(route)}
         ${page(route)}
+<section class="open-context"><div class="reference-heading"><h2>Курсы валют</h2><span>Открытые данные</span></div><p class="source-note">Банк России · 02.10.2026 · справочные значения, не курс сделки</p><div class="reference-grid"><article class="reference-item"><div><strong>1 GBP</strong><p>110.5915 ₽</p><a href="https://www.cbr.ru/scripts/XML_daily.asp" target="_blank" rel="noreferrer">Источник ↗</a></div></article><article class="reference-item"><div><strong>1 USD</strong><p>83.2454 ₽</p><a href="https://www.cbr.ru/scripts/XML_daily.asp" target="_blank" rel="noreferrer">Источник ↗</a></div></article><article class="reference-item"><div><strong>1 EUR</strong><p>94.5252 ₽</p><a href="https://www.cbr.ru/scripts/XML_daily.asp" target="_blank" rel="noreferrer">Источник ↗</a></div></article><article class="reference-item"><div><strong>1 CNY</strong><p>12.4028 ₽</p><a href="https://www.cbr.ru/scripts/XML_daily.asp" target="_blank" rel="noreferrer">Источник ↗</a></div></article></div></section>
       </main>
     </div>
   `;
@@ -178,7 +179,7 @@ function currentRoute() {
 
 function topline(route) {
   const titles = {
-    overview: ["Choose role", "One live link. Pick who you want to be: client, partner, admin, treasury or observer."],
+    overview: ["Рабочая область", "USDT Desk / Обзор операций"],
     flow: ["Live flow", "Click through the full fiat to USDT lifecycle."],
     user: ["User view", "Client order form, payment instructions and receipt."],
     partner: ["Partner view", "Fiat confirmation, mismatch and partner reserve."],
@@ -204,9 +205,9 @@ function overview() {
   return `
     <section class="hero">
       <div class="hero-body">
-        <span class="eyebrow">One hosted link</span>
-        <h2>Выберите, за кого смотреть приложение.</h2>
-        <p>Это живая GitHub Pages ссылка для презентации. Она показывает роли, lifecycle сделки, reserve, settlement и audit без локального запуска.</p>
+        <span class="eyebrow">Операционная панель</span>
+        <h2>Заявки и расчёты<br>под контролем.</h2>
+        <p>Создайте заявку, подтвердите поступление средств и проведите расчёт. Каждое действие сохраняется в журнале. Учебный контур: реальные переводы не выполняются.</p>
         <div class="actions"><button data-action="create">Create live order</button><a class="button ghost" href="#/flow">Watch full flow</a></div>
       </div>
       <div class="role-picker">
